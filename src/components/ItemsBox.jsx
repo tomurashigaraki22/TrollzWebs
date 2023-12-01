@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { HiOutlineHeart } from "react-icons/hi";
 import { ShopContext } from "../context/shop-context";
 import { BASE_TEST } from "../../config";
+import jwt_decode from 'jwt-decode'
 
 const ItemsBox = (props) => {
   // Assuming `addToCart` function is defined in your context
@@ -10,7 +11,9 @@ const ItemsBox = (props) => {
 
   const handleAddToCart = async () => {
     try {
-      const response = await fetch(`${BASE_TEST}/addToCart/${props.id}`, {
+      const token = localStorage.getItem('token')
+      const {email} = jwt_decode(token)
+      const response = await fetch(`${BASE_TEST}/addToCart/${props.id}/${email}`, {
         method: 'POST',
       });
       const resp2 = await response.json();
