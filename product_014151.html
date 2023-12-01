@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+    </style>
+</head>
+
+<body>
+    <nav class="uppernav">
+        <div>
+            <p>Contact Us</p>
+            <p> | </p>
+            <p>Sign in</p>
+        </div>
+    </nav>
+    <nav class="subnav">
+        <div class="innerdivsubnav">
+            <div><img src="image/logo"></div>
+
+            <ul>
+                <li><a href="#">Featured Products</a>
+                    <a href="#">Sales</a>
+                    <a href="#">Advertisments</a>
+                    <a href="#">Men</a>
+                    <a href="#">Women</a>
+                    <a href="#">Kids</a>
+                </li>
+            </ul>
+            <div class="rightsideimages">
+                <img src="image/logo">
+                <img src="image/logo">
+                <img src="image/logo">
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="productsection">
+            <div class="productinnerbox"></div>
+            <div class="namediv">
+                <div class="namesect">
+                    <p class="whiliststatus">Product Name here</p>
+                    <p class="whilistadd">$764.00</p>
+                </div>
+                <div class="addtocart">
+                    <div class="addtocartinner">
+                        <button id="plus">+</button>
+                        <p id="num">3</p>
+                        <button id="minus">-</button>
+                    </div>
+                    <aside><img src="img/dustbin">Remove</aside>
+                </div>
+            </div>    
+            
+            <div class="checkoutdiv">
+                <p class="Checkoutheading">Checkout</p>
+                <div class="incheckoutdiv">
+                    <p>Subtotal</p>
+                    <p>$768.00</p>
+                </div>
+
+                <div class="incheckoutdiv">
+                    <p>Shipping</p>
+                    <p>$12.00</p>
+                </div>
+                <hr>
+                <div class="incheckoutdiv bolder">
+                    <p>Total</p>
+                    <p>$780.00</p>
+                </div>
+
+
+                <button class="Checkoutbutton">Checkout</button>
+            </div>
+        </div>
+    </main>
+    <script>
+    var numElement = document.getElementById('num');
+        var numValue = 0;
+
+        document.getElementById('plus').addEventListener('click', e => {
+            numValue += 1;
+            console.log('sky');
+            numElement.textContent = numValue;
+        });
+
+        document.getElementById('minus').addEventListener('click', e => {
+            numValue -= 1;
+            console.log('india');
+            numElement.textContent = numValue;
+        });
+</script>
+</body>
+
+</html>

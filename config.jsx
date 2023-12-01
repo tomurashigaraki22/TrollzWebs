@@ -1,0 +1,6 @@
+export const LOGIN_URL = 'https://trollzsv.onrender.com/login'
+export const SIGNUP_URL = 'https://trollzsv.onrender.com/signup'
+export const BASE_URL = 'https://trollzsv.onrender.com'
+export const BASE_TEST = 'https://trollzsv.onrender.com'
+export const LOGIN_TEST = 'https://trollzsv.onrender.com/login'
+export const SIGNUP_TEST = 'https://trollzsv.onrender.com/signup'
