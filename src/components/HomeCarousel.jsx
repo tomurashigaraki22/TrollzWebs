@@ -6,7 +6,7 @@ import { BASE_TEST } from "../../config";
 import { useNavigate } from "react-router-dom";
 
 const HomeCarousel = () => {
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,10 +18,9 @@ const HomeCarousel = () => {
         formdata.append("email", email);
         const response = await fetch(`${BASE_TEST}/getItems4`);
         const resp2 = await response.json();
-        console.log("test2");
 
         if (resp2.status === 200) {
-          setitems(resp2.posts);
+          setItems(resp2.posts);
         } else {
           console.log("Something happened");
         }
@@ -38,13 +37,13 @@ const HomeCarousel = () => {
   };
 
   return (
-    <div className="flex gap-5 pl-[90px] items-center overflow-x-auto">
-      <div className="flex justify-center items-start flex-col w-[200px] h-[250px]  gap-4">
-        <h1 className="font-bold text-xl ">Explore the Latest Arrival</h1>
-        <p className="text-sm">
+    <div className="flex gap-5 pl-[40px] items-center overflow-x-auto">
+      <div className="flex flex-col justify-center items-start w-[200px] h-[250px] gap-4">
+        <h1 className="font-bold text-2xl text-gray-800 leading-tight">Explore the Latest Arrivals</h1>
+        <p className="text-base text-gray-600">
           We offer only the best of the best, <br /> at affordable prices
         </p>
-        <button className="w-[150px] h-[30px] bg-black text-xs uppercase text-white flex items-center justify-center ">
+        <button className="w-[150px] h-[40px] bg-black text-sm uppercase text-white flex items-center justify-center rounded-full shadow-md">
           Set New Arrival
         </button>
       </div>
@@ -57,7 +56,7 @@ const HomeCarousel = () => {
           caption={product.caption}
           price={product.price}
           currency={product.currency}
-          onClick={() => navigate('/product/'+product.id)}
+          onClick={() => navigate(`/product/${product.id}`)}
         />
       ))}
     </div>

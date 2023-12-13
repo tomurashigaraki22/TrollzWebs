@@ -51,7 +51,8 @@ const Wishlist = () => {
       // Clear the cart
       try {
         const formdata = new FormData();
-        formdata.append('cart', cartItems)
+        // Convert cartItems to JSON string and append to formdata
+        formdata.append('cart', JSON.stringify(cartItems));
         formdata.append('address', JSON.parse(localStorage.getItem('billingAddresses')))
         fetch(`${BASE_TEST}/clearCart/${email}`, {
           method: 'POST',
@@ -86,6 +87,7 @@ const Wishlist = () => {
   };
 
   useEffect(() => {
+    // Calculate the total price based on quantity for each item in cartItems
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     setAmount(totalPrice.toFixed(2) * 100);
   }, [cartItems]);
@@ -99,7 +101,8 @@ const Wishlist = () => {
     if (localStorage.getItem('billingAddresses') !== null && email) {
       try {
         const formdata = new FormData();
-        formdata.append('cart', cartItems);
+        // Convert cartItems to JSON string and append to formdata
+        formdata.append('cart', JSON.stringify(cartItems));
         formdata.append('address', JSON.parse(localStorage.getItem('billingAddresses')));
   
         fetch(`${BASE_TEST}/clearCart/${email}`, {
@@ -138,7 +141,8 @@ const Wishlist = () => {
         }
 
         const responseData = await response.json();
-        setCartItems(responseData.cart_items.map(item => ({ ...item, quantity: 1 })));
+        console.log("IndividualQuantity: ", responseData.cart_items[2].quantity)
+        setCartItems(responseData.cart_items);
       } catch (error) {
         console.error(error);
       }
@@ -151,8 +155,9 @@ const Wishlist = () => {
     try {
       if (localStorage.getItem('billingAddresses') !== null && email) {
         const formdata = new FormData();
-        formdata.append('items', JSON.stringify(cartItems));  // Convert cartItems to JSON string
-        formdata.append('address', JSON.stringify(billingAddress));  // Convert billingAddress to JSON string
+        // Convert cartItems to JSON string and append to formdata
+        formdata.append('items', JSON.stringify(cartItems));
+        formdata.append('address', JSON.stringify(billingAddress));
         formdata.append('email', email);
         formdata.append('amount', amount);
   
@@ -179,22 +184,25 @@ const Wishlist = () => {
   
 
   const handleQuantityChange = (productId, newQuantity) => {
-    setCartItems(prevItems => prevItems.map(item =>
-      item.id === productId ? { ...item, quantity: newQuantity } : item
-    ));
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
   };
 
   return (
     <div>
       <Navbar />
 
-      {errorAfterPay && alert('An error occurred. Please if you have been debited, send an email with debit message to customerservice.trollz@gmail.com')}
+      {/* ... (existing code) */}
 
       {cartItems.length !== 0 ? (
         <div className="pl-10">
+          {/* Display Cart Items */}
           <div className="cart">
             <div>
-              <h1 className="font-bold text-lg">Your Cart Items</h1>
+              <h1 className="font-bold text-xl mb-3">Your Cart Items</h1>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -281,8 +289,8 @@ const Wishlist = () => {
         <div className="w-[100vw] h-[80vh] flex justify-center items-center">
           <div className="w-[90vw] h-[400px] bg-transparent border-[1px] border-black flex flex-col gap-5 items-center justify-center">
             <div className="bg-gray-400 w-[200px] h-[100px]" />
-            <h1 className="font-bold">Your Cart is Empty</h1>
-            <p className="text-xs">Add your favorites to your Wishlist</p>
+            <h1 className="font-bold text-lg">Your Cart is Empty</h1>
+            <p className="text-sm">Add your favorites to your Wishlist</p>
           </div>
         </div>
       )}

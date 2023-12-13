@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Navbar from './components/Navbar'
 import Featured from './pages/Featured'
@@ -19,13 +19,13 @@ import SearchPage from './pages/Search'
 import CategoryPage from './pages/Categories'
 import LatestCollection from './pages/LatestColl'
 import LatestGadgets from './pages/LatestGadgets'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 
 
 const App = () => {
   return (
     <div>
-      <ShopContextProvider>
         <Router>
           <Routes>
           <Route path='/' element={<HomePage />} />
@@ -43,6 +43,7 @@ const App = () => {
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/product/:productId' element={<Product />}>
           </Route>
+          <Route path='/privacypolicy' element={<PrivacyPolicy/>}/>
           <Route path='/search/:query' element={<SearchPage />}>
           </Route>
           <Route path='/login' element={<Login/>}/>
@@ -51,7 +52,6 @@ const App = () => {
           <Route path='*' element={<h1>404 Error</h1>}/>
           </Routes>
         </Router>
-      </ShopContextProvider>
     </div>
   )
 }

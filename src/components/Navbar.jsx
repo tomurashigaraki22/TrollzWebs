@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { HiSearch, HiShoppingBag, HiHeart, HiShoppingCart } from 'react-icons/hi';
+import { HiSearch, HiShoppingCart } from 'react-icons/hi';
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
     console.log(`Searching for: ${searchQuery}`);
 
     // Navigate to the search page with the query as a parameter
-    localStorage.setItem('searchQ', searchQuery)
+    localStorage.setItem('searchQ', searchQuery);
     navigate(`/search/${searchQuery}`);
 
     // Close the search input
@@ -36,9 +36,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-300 to-gray-200 to-gray-100 text-white">
+    <div className="bg-gradient-to-r from-gray-300 to-gray-200 text-gray-800">
       {/* Top Part */}
-      <div className="flex gap-5 justify-end bg-gray-200 px-[40px] py-2 text-black text-sm">
+      <div className="flex gap-5 justify-end bg-gray-200 px-6 py-2 text-black text-sm">
         <Link to="/contact" className="text-black">
           Contact us
         </Link>
@@ -49,13 +49,13 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar */}
-      <div className="flex items-center justify-between py-6 px-[60px] text-xl text-black font-sans">
+      <div className="flex items-center justify-between py-6 px-[30px] text-2xl font-bold">
         {/* logo */}
-        <Link to='/'>Trollz</Link>
+        <Link to='/' className="text-black">Trollz</Link>
 
         {/* Navigations */}
         <ul className="flex gap-4 center text-sm max-sm:hidden">
-          <Link to='/featured'>Featured Product</Link>
+          <Link to='/featured'>Featured Products</Link>
           <Link to='/latestcoll'>Latest Collections</Link>
         </ul>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
         <div className="relative">
           <HiSearch onClick={handleSearchToggle} className="cursor-pointer" />
           {isSearchOpen && (
-            <div className="absolute top-0 right-0">
+            <div className="absolute top-0 right-0 flex items-center">
               <input
                 type="text"
                 placeholder="Search..."
@@ -73,7 +73,7 @@ const Navbar = () => {
                 onKeyPress={handleKeyPress}
               />
               <button
-                className="bg-black-300 text-white px-4 py-2 rounded"
+                className="bg-black text-white px-4 py-2 rounded"
                 onClick={handleSearchSubmit}
               >
                 Search
@@ -84,7 +84,9 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="flex gap-5">
-          <Link to='/wishlist'>{<HiShoppingCart className="top-0 right-0"/>}</Link>
+          <Link to='/wishlist'>
+            <HiShoppingCart className="text-3xl cursor-pointer" />
+          </Link>
         </div>
       </div>
     </div>
