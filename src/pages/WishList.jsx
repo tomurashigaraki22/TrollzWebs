@@ -10,16 +10,8 @@ import { BASE_TEST } from "../../config";
 const Wishlist = () => {
   const [cartItems, setCartItems] = useState([]);
   const [email, setEmail] = useState('');
-  const [payod, setpayod] = useState(false)
   const [amount, setAmount] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const [errorAfterPay, setErrorAfterPay] = useState(false);
-  const [billingAddress, setBillingAddress] = useState({
-    streetAddress: '',
-    city: '',
-    state: '',
-    postalCode: ''
-  });
   const [cartClear, setCartClear] = useState(false);
   const [problem, setProblem] = useState(false);
 
@@ -28,51 +20,34 @@ const Wishlist = () => {
   const secretKey = 'sk_live_85fa61d5f727b18ceed683d3fdbf94c17776a4b2';
 
   const onSuccessDo = () => {
-    alert("Make sure you enter and submit your address at the bottom of the cart page");
-    setShowModal(true); // Show billing address modal
+    handleBillingAddressSubmit(); // Automatically submit the address
   };
 
   const handleBillingAddressSubmit = () => {
-    // Validate the entered billing address (you may add more complex validation)
-    if (
-      billingAddress.streetAddress &&
-      billingAddress.city &&
-      billingAddress.state &&
-      billingAddress.postalCode
-    ) {
-      // Store the billing address in local storage
-      const savedAddresses = JSON.parse(localStorage.getItem('billingAddresses')) || [];
-      savedAddresses.push(billingAddress);
-      localStorage.setItem('billingAddresses', JSON.stringify(savedAddresses));
-
-      // Close the modal
-      setShowModal(false);
-
-      // Clear the cart
-      try {
-        const formdata = new FormData();
-        // Convert cartItems to JSON string and append to formdata
-        formdata.append('cart', JSON.stringify(cartItems));
-        formdata.append('address', JSON.parse(localStorage.getItem('billingAddresses')))
-        fetch(`${BASE_TEST}/clearCart/${email}`, {
-          method: 'POST',
-          body: formdata
+    // Clear the cart
+    try {
+      const formdata = new FormData();
+      const token = localStorage.getItem('token')
+      const {address} = jwt_decode(token)
+      // Convert cartItems to JSON string and append to formdata
+      formdata.append('cart', JSON.stringify(cartItems));
+      formdata.append('address', address)
+      fetch(`${BASE_TEST}/clearCart/${email}`, {
+        method: 'POST',
+        body: formdata
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 200) {
+            setCartClear(true);
+            alert('Order Completed Successfully');
+          } else {
+            setProblem(true);
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              setCartClear(true);
-              alert('Order Completed Successfully')
-            } else {
-              setProblem(true);
-            }
-          })
-      } catch (error) {
-        console.error(error);
-        setErrorAfterPay(true);
-      }
-    } else {
-      alert("Please fill in all fields.");
+    } catch (error) {
+      console.error(error);
+      setErrorAfterPay(true);
     }
   };
 
@@ -90,40 +65,7 @@ const Wishlist = () => {
     // Calculate the total price based on quantity for each item in cartItems
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     setAmount(totalPrice.toFixed(2) * 100);
-  }, [cartItems]);
-
-  const handlePayOnDelivery = () => {
-    // Implement the logic for pay on delivery
-    onSuccessDo();
-  };
-
-  const afteronpayd = () => {
-    if (localStorage.getItem('billingAddresses') !== null && email) {
-      try {
-        const formdata = new FormData();
-        // Convert cartItems to JSON string and append to formdata
-        formdata.append('cart', JSON.stringify(cartItems));
-        formdata.append('address', JSON.parse(localStorage.getItem('billingAddresses')));
-  
-        fetch(`${BASE_TEST}/clearCart/${email}`, {
-          method: 'POST',
-          body: formdata
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              setCartClear(true);
-              alert('Order Completed Successfully')
-            } else {
-              setProblem(true);
-            }
-          });
-      } catch (error) {
-        console.error(error);
-        setErrorAfterPay(true);
-      }
-    }
-  };
+  }, [cartItems !== undefined && cartItems.length > 0]);
 
   useEffect(() => {
     async function getCartItems() {
@@ -141,7 +83,6 @@ const Wishlist = () => {
         }
 
         const responseData = await response.json();
-        console.log("IndividualQuantity: ", responseData.cart_items[2].quantity)
         setCartItems(responseData.cart_items);
       } catch (error) {
         console.error(error);
@@ -150,38 +91,6 @@ const Wishlist = () => {
 
     getCartItems();
   }, [email]);
-
-  const handlePayOnDeliverys = () => {
-    try {
-      if (localStorage.getItem('billingAddresses') !== null && email) {
-        const formdata = new FormData();
-        // Convert cartItems to JSON string and append to formdata
-        formdata.append('items', JSON.stringify(cartItems));
-        formdata.append('address', JSON.stringify(billingAddress));
-        formdata.append('email', email);
-        formdata.append('amount', amount);
-  
-        fetch(`${BASE_TEST}/payondelivery`, {
-          method: 'POST',
-          body: formdata,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              setCartClear(true);
-              afteronpayd();
-              alert('Order Completed Successfully');
-            } else {
-              setProblem(true);
-            }
-          });
-      }
-    } catch (error) {
-      console.error(error);
-      setErrorAfterPay(true);
-    }
-  };
-  
 
   const handleQuantityChange = (productId, newQuantity) => {
     setCartItems(prevItems =>
@@ -197,12 +106,12 @@ const Wishlist = () => {
 
       {/* ... (existing code) */}
 
-      {cartItems.length !== 0 ? (
+      {cartItems !== undefined && cartItems.length > 0 ? (
         <div className="pl-10">
           {/* Display Cart Items */}
           <div className="cart">
             <div>
-              <h1 className="font-bold text-xl mb-3">Your Cart Items</h1>
+              <h1 className="font-bold text-3xl mb-3">Your Cart</h1>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -222,68 +131,11 @@ const Wishlist = () => {
 
           {/* Display total price and checkout buttons */}
           <div className="flex justify-end items-center mt-5 pl-40">
-            <p className="text-lg font-bold mr-3">Total: NGN{amount / 100}.00</p>
+            <p className="text-lg font-bold mr-3">Total: NGN{Number(amount / 100).toLocaleString()}.00</p>
             <div className="flex space-x-3">
               <PaystackButton {...componentProps} className="bg-blue-500 text-white p-2 rounded" />
-
-              {amount >= 200000 && (
-                <button onClick={handlePayOnDelivery} className="bg-green-500 text-white p-2 rounded">
-                  Pay On Delivery
-                </button>
-              )}
             </div>
           </div>
-
-          {/* Billing Address Modal */}
-          {showModal && (
-            <div className="modal">
-              <div className="modal-content">
-                <h2>Enter Billing Address</h2>
-                <label className="block mb-4">
-                  Street Address:
-                  <input
-                    type="text"
-                    value={billingAddress.streetAddress}
-                    onChange={(e) => setBillingAddress({ ...billingAddress, streetAddress: e.target.value })}
-                    className="w-3/5 p-2 border border-gray-300"
-                  />
-                </label>
-                <label className="block mb-4">
-                  City:
-                  <input
-                    type="text"
-                    value={billingAddress.city}
-                    onChange={(e) => setBillingAddress({ ...billingAddress, city: e.target.value })}
-                    className="w-3/5 p-2 border border-gray-300"
-                  />
-                </label>
-                <label className="block mb-4">
-                  State:
-                  <input
-                    type="text"
-                    value={billingAddress.state}
-                    onChange={(e) => setBillingAddress({ ...billingAddress, state: e.target.value })}
-                    className="w-3/5 p-2 border border-gray-300"
-                  />
-                </label>
-                <label className="block mb-4">
-                  Postal Code:
-                  <input
-                    type="text"
-                    value={billingAddress.postalCode}
-                    onChange={(e) => setBillingAddress({ ...billingAddress, postalCode: e.target.value })}
-                    className="w-3/5 p-2 border border-gray-300"
-                  />
-                </label>
-                <button
-                  onClick={payod ? handleBillingAddressSubmit : handlePayOnDeliverys}
-                  className="bg-blue-500 text-white p-2 rounded"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       ) : (
         <div className="w-[100vw] h-[80vh] flex justify-center items-center">

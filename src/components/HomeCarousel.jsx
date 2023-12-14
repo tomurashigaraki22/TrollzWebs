@@ -37,7 +37,7 @@ const HomeCarousel = () => {
   };
 
   return (
-    <div className="flex gap-5 pl-[40px] items-center overflow-x-auto">
+    <div className="flex bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] gap-5 pl-[40px] items-center overflow-x-auto">
       <div className="flex flex-col justify-center items-start w-[200px] h-[250px] gap-4">
         <h1 className="font-bold text-2xl text-gray-800 leading-tight">Explore the Latest Arrivals</h1>
         <p className="text-base text-gray-600">

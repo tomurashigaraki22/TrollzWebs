@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { Dots } from 'react-activity';
 import 'react-activity/dist/Dots.css';  // Import the styles
@@ -40,25 +40,28 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   return (
-    <div>
+    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] overflow-hidden'>
       <Navbar />
-      <div className="container mx-auto mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
-        {loading ? (
-          <Dots />
-        ) : searchResults.length === 0 ? (
-          <p className='text-xl text-gray font-bold' style={{ textAlign: 'center'}}>No items found</p>
-        ) : (
-          searchResults.map((item) => (
-            <div key={item.caption} onClick={() => navigate('/product/' + item.id)} className="mb-8">
-              <img src={`${BASE_TEST}/${item.img}`} alt={item.caption} className="w-full h-64 object-cover" />
-              <h2 className="text-xl font-bold mt-2">{item.caption}</h2>
-              <p className="text-gray-600">{item.category}</p>
-              <p className="text-lg font-bold mt-2">
-                {item.currency} {item.price}
-              </p>
-            </div>
-          ))
-        )}
+      <div className="container mx-auto mt-10 px-5">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Searching for: {searchQuery}</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+          {loading ? (
+            <Dots />
+          ) : searchResults.length === 0 ? (
+            <p className='text-xl text-gray font-bold' style={{ textAlign: 'center'}}>No items found</p>
+          ) : (
+            searchResults.map((item) => (
+              <div key={item.caption} onClick={() => navigate('/product/' + item.id)} className="pl-3 mb-8 rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg">
+                <img src={`${BASE_TEST}/${item.img}`} alt={item.caption} className="w-full h-64 object-contain" />
+                <h2 className="text-xl font-bold mt-2">{item.caption}</h2>
+                <p className="text-gray-600">{item.category}</p>
+                <p className="text-lg font-bold mt-2">
+                  {item.currency} {item.price}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

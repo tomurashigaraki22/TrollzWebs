@@ -27,8 +27,14 @@ const CartItems = (props) => {
 
       if (response.ok) {
         // Handle successful removal from the cart, e.g., update state or UI
-        console.log('Item removed from the cart');
-        window.location.reload();
+        const resp2 = await response.json()
+        if (resp2.status === 200){
+          console.log('Item removed from the cart');
+          window.location.reload();
+        }
+        else{
+          console.log('Wy6')
+        }
       } else {
         // Handle errors if needed
         console.error('Error removing item from the cart');

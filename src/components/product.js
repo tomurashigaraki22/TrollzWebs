@@ -2,6 +2,7 @@
 import React from 'react';
 
 export const PRODUCTS = [
+
     {
         id:1,
         productName: "Product Name 1",

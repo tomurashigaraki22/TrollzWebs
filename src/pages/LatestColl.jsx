@@ -45,7 +45,7 @@ const LatestCollection = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
         <Navbar/>
     <div className="container mx-auto mt-10">
       <h2 className="text-3xl font-bold mb-6">Latest Collection</h2>

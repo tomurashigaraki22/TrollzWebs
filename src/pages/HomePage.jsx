@@ -8,7 +8,7 @@ import LastSection from '../components/LastSection'
 import Footer from '../components/Footer'
 const HomePage = () => {
   return (
-    <div style={{overflow: "hidden"}}>
+    <div style={{overflow: "hidden"}} className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]'>
         <Navbar />
       <HomeHero />
       <HomeCarousel />

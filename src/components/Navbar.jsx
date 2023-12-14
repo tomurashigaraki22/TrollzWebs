@@ -36,14 +36,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-300 to-gray-200 text-gray-800">
+    <div className="bg-[#fde7d9] text-gray-800">
       {/* Top Part */}
-      <div className="flex gap-5 justify-end bg-gray-200 px-6 py-2 text-black text-sm">
-        <Link to="/contact" className="text-black">
+      <div className="flex bg-[#fde7d9] gap-5 justify-end bg-gray-200 px-6 py-2 text-black text-sm">
+        <Link to="/contact" className="text-black hover:underline pb-1">
           Contact us
         </Link>
         <p>|</p>
-        <Link to="/login" className="text-black">
+        <Link to="/login" className="text-black hover:underline pb-1">
           Sign in
         </Link>
       </div>
@@ -51,29 +51,29 @@ const Navbar = () => {
       {/* Main Navbar */}
       <div className="flex items-center justify-between py-6 px-[30px] text-2xl font-bold">
         {/* logo */}
-        <Link to='/' className="text-black">Trollz</Link>
+        <Link to='/' className="text-black hover:underline pb-1">Trollz</Link>
 
         {/* Navigations */}
         <ul className="flex gap-4 center text-sm max-sm:hidden">
-          <Link to='/featured'>Featured Products</Link>
-          <Link to='/latestcoll'>Latest Collections</Link>
+          <Link to='/featured' className="hover:underline pb-1">Featured Products</Link>
+          <Link to='/latestcoll' className="hover:underline pb-1">Latest Collections</Link>
         </ul>
 
         {/* Search */}
         <div className="relative">
           <HiSearch onClick={handleSearchToggle} className="cursor-pointer" />
           {isSearchOpen && (
-            <div className="absolute top-0 right-0 flex items-center">
+            <div className="absolute top-0 right-0 mt-2">
               <input
                 type="text"
                 placeholder="Search..."
-                className="p-2 border border-gray-300"
+                className="p-1 w-32 border border-gray-300 focus:outline-none focus:border-black rounded-l"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
                 onKeyPress={handleKeyPress}
               />
               <button
-                className="bg-black text-white px-4 py-2 rounded"
+                className="bg-black text-white px-2 py-1 rounded-r text-10"
                 onClick={handleSearchSubmit}
               >
                 Search

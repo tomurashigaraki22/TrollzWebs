@@ -66,7 +66,7 @@ const Login = () => {
   }
 
   return (
-    <div className='w-[100vw] h-[100vh] flex'>
+    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] w-[100vw] h-[100vh] flex'>
       {/* login */}
       <div className='w-[50vw] max-sm:w-[100vw] flex flex-col py-[50px] pl-10 max-sm:items-center max-sm:pl-0 gap-2'>
         <h1 className='text-2xl font-bold '>Login</h1>

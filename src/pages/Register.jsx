@@ -7,6 +7,7 @@ import 'react-activity/dist/library.css'; // Import the CSS file for the loading
 
 const Register = () => {
   const [email, setemail] = useState('');
+  const [address, setAddress] = useState('');
   const [password, setpassword] = useState('');
   const [wrongEmailType, setwrongEmailtype] = useState(false);
   const [whiteEmailOrPass, setwhiteEmailOrPass] = useState(false);
@@ -29,7 +30,7 @@ const Register = () => {
         return;
       }
 
-      if (email === '' || password === '') {
+      if (email === '' || password === '' || address === '') {
         setwhiteEmailOrPass(true);
         setloggingin(false); // Reset loading state
         return;
@@ -38,6 +39,7 @@ const Register = () => {
       const formdata = new FormData();
       formdata.append('email', email);
       formdata.append('password', password);
+      formdata.append('address', address); // Add this line
       const response = await fetch(`${SIGNUP_TEST}`, {
         method: 'POST',
         body: formdata,
@@ -64,7 +66,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]'>
       <div className='w-[100vw] h-[100vh] flex'>
         {/* Register */}
         <div className='w-[50vw] max-sm:w-[100vw] flex flex-col py-[40px] pl-10 max-sm:items-center max-sm:pl-0 gap-2'>
@@ -103,6 +105,15 @@ const Register = () => {
             placeholder='Password....'
             className='border-[1px] w-[300px] h-[30px] rounded-[2px] pl-3'
           />
+
+          <label className='text-xs font-bold mt-2'>Address</label>
+                <input
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  type='text'
+                  placeholder='House Number, Street, Town, City, State...'
+                  className='border-[1px] w-[300px] h-[30px] rounded-[2px] pl-3'
+                />
 
           <button onClick={signup} className='w-[300px] h-[30px] mt-5 rounded-sm drop-shadow-lg bg-gray-500 text-white py-3 flex items-center justify-center'>
             {loggingin ? <Dots /> : 'Create Account'}

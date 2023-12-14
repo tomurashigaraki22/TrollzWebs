@@ -55,7 +55,7 @@ const CategoryPage = () => {
   }
 
   return (
-    <div>
+    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]'>
         <Navbar/>
         <div className="container mx-auto mt-8">
             

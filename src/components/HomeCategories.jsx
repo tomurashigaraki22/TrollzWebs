@@ -3,7 +3,7 @@ import CategoriesBox from './CategoriesBox';
 
 const HomeCategories = () => {
   return (
-    <div className='mt-10 mb-10 pl-[40px] overflow-x-auto'>
+    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] pt-10 pl-[40px] overflow-x-auto'>
       <h1 className='font-bold text-2xl text-gray-800 mb-6'>Top Categories</h1>
       <div className="flex gap-6 pl-[60px] max-sm:pl-0">
         <CategoriesBox
