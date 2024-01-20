@@ -47,12 +47,12 @@ const LatestCollection = () => {
   return (
     <div className="bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
       <Navbar />
-      <div className="container mx-auto mt-10">
+      <div className="bg-blue-500 container mx-auto mt-10 min-h-screen!">
         <h2 className="text-3xl font-bold mb-6">Latest Collection</h2>
         {loading ? (
           <Dots />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 bg-blue-500">
             {items.map((item) => (
               <div
                 onClick={() => navigate('/product/' + item.id)}
