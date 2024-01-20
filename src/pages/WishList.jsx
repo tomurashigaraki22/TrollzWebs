@@ -107,7 +107,7 @@ const Wishlist = () => {
       {/* ... (existing code) */}
 
       {cartItems !== undefined && cartItems.length > 0 ? (
-        <div className="pl-10">
+        <div className="pl-10 min-h-screen bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
           {/* Display Cart Items */}
           <div className="cart">
             <div>
@@ -122,7 +122,7 @@ const Wishlist = () => {
                 img={product.img}
                 currency={product.currency}
                 id={product.id}
-                price={product.price}
+                price={product.price.toLocaleString()}
                 quantity={product.quantity}
                 onQuantityChange={(newQuantity) => handleQuantityChange(product.id, newQuantity)}
               />
@@ -138,7 +138,7 @@ const Wishlist = () => {
           </div>
         </div>
       ) : (
-        <div className="w-[100vw] h-[80vh] flex justify-center items-center">
+        <div className="w-[100vw] h-[80vh] flex justify-center items-center bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
           <div className="w-[90vw] h-[400px] bg-transparent border-[1px] border-black flex flex-col gap-5 items-center justify-center">
             <div className="bg-gray-400 w-[200px] h-[100px]" />
             <h1 className="font-bold text-lg">Your Cart is Empty</h1>

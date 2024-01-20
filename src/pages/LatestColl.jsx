@@ -57,7 +57,7 @@ const LatestCollection = () => {
               <div
                 onClick={() => navigate('/product/' + item.id)}
                 key={item.id}
-                className="border p-6 rounded-lg bg-white" // Add bg-white for the white background
+                className="border p-6 rounded-md bg-white" // Add bg-white for the white background
               >
                 <img
                   src={`${BASE_TEST}/${item.img.replace(/\\/g, '/')}`}
@@ -66,7 +66,7 @@ const LatestCollection = () => {
                 />
                 <h3 className="text-lg font-bold">{item.caption}</h3>
                 <p className="text-gray-600">{item.category}</p>
-                <p className="text-gray-800 mt-2">NGN{item.price}</p>
+                <p className="text-gray-800 mt-2">NGN{item.price.toLocaleString()}</p>
               </div>
             ))}
           </div>

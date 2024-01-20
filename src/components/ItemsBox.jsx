@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { HiOutlineHeart } from "react-icons/hi";
 import { ShopContext } from "../context/shop-context";
 import { BASE_TEST } from "../../config";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 
 const ItemsBox = (props) => {
   // Assuming `addToCart` function is defined in your context
@@ -11,8 +11,8 @@ const ItemsBox = (props) => {
 
   const handleAddToCart = async () => {
     try {
-      const token = localStorage.getItem('token')
-      const {email} = jwt_decode(token)
+      const token = localStorage.getItem('token');
+      const { email } = jwt_decode(token);
       const response = await fetch(`${BASE_TEST}/addToCart/${props.id}/${email}`, {
         method: 'POST',
       });
@@ -29,9 +29,9 @@ const ItemsBox = (props) => {
   };
 
   return (
-    <article className="flex flex-col border border-gray-300 rounded shadow-lg m-4">
+    <article className="flex flex-col justify-center items-center border border-gray-300 rounded shadow-lg m-4 max-w-lg">
       {/* Image Section */}
-      <div className="w-full h-48">
+      <div className="w-full h-48 rounded-md bg-white pt-10">
         <img
           src={`${BASE_TEST}/${props.img.replace(/\\/g, '/')}`}
           alt={`Image for ${props.caption}`}
@@ -40,12 +40,12 @@ const ItemsBox = (props) => {
       </div>
 
       {/* Content Section */}
-      <div className="p-4 flex flex-col justify-between flex-1">
+      <div className="p-4 flex flex-col justify-between flex-1 bg-white rounded-b w-full">
         {/* Title */}
         <p className="text-lg font-semibold mb-2">{props.caption}</p>
 
         {/* Price */}
-        <p className="text-sm font-bold mb-2">{props.price}</p>
+        <p className="text-sm font-bold mb-2">{props.price.toLocaleString()}</p>
 
         {/* Description */}
         <p className="text-sm mb-2">{props.description || "No description available"}</p>
@@ -62,9 +62,9 @@ const ItemsBox = (props) => {
         {/* Add to Cart Button */}
         {!isAdded ? (
           <button
-          className="bg-black text-white px-4 py-2 rounded hover:bg-gray-900 transition"
-          onClick={handleAddToCart}
-        >
+            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-900 transition"
+            onClick={handleAddToCart}
+          >
             Add to Cart
           </button>
         ) : (

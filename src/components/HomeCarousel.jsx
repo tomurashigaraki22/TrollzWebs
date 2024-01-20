@@ -54,7 +54,7 @@ const HomeCarousel = () => {
           id={product.id}
           img={product.img}
           caption={product.caption}
-          price={product.price}
+          price={product.price.toLocaleString()}
           currency={product.currency}
           onClick={() => navigate(`/product/${product.id}`)}
         />

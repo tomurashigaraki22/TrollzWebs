@@ -40,7 +40,7 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   return (
-    <div className='bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] overflow-hidden'>
+    <div className='min-h-screen bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] overflow-hidden'>
       <Navbar />
       <div className="container mx-auto mt-10 px-5">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Searching for: {searchQuery}</h1>
@@ -51,12 +51,12 @@ const SearchPage = () => {
             <p className='text-xl text-gray font-bold' style={{ textAlign: 'center'}}>No items found</p>
           ) : (
             searchResults.map((item) => (
-              <div key={item.caption} onClick={() => navigate('/product/' + item.id)} className="pl-3 mb-8 rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg">
+              <div key={item.caption} onClick={() => navigate('/product/' + item.id)} className="cursor-pointer pl-3 mb-8 rounded-lg pt-10 pb-5 overflow-hidden bg-white shadow-md hover:shadow-lg">
                 <img src={`${BASE_TEST}/${item.img}`} alt={item.caption} className="w-full h-64 object-contain" />
                 <h2 className="text-xl font-bold mt-2">{item.caption}</h2>
                 <p className="text-gray-600">{item.category}</p>
                 <p className="text-lg font-bold mt-2">
-                  {item.currency} {item.price}
+                  {item.currency} {item.price.toLocaleString()}
                 </p>
               </div>
             ))
