@@ -29,7 +29,7 @@ const ItemsBox = (props) => {
   };
 
   return (
-    <article className="flex flex-col border border-gray-300 rounded overflow-hidden shadow-lg m-4">
+    <article className="flex flex-col border border-gray-300 rounded shadow-lg m-4">
       {/* Image Section */}
       <div className="w-full h-48">
         <img

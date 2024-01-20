@@ -62,7 +62,7 @@ const LatestCollection = () => {
                 <img
                   src={`${BASE_TEST}/${item.img.replace(/\\/g, '/')}`}
                   alt={`Item ${item.id}`}
-                  className="w-full h-40 object-contain mb-4"
+                  className="w-full h-40 object-cover mb-4"
                 />
                 <h3 className="text-lg font-bold">{item.caption}</h3>
                 <p className="text-gray-600">{item.category}</p>

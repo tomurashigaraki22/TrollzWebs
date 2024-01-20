@@ -36,7 +36,7 @@ const Product = () => {
     }, [productId]);
 
     return (
-        <div className="bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
+        <div className="min-h-screen bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
             <Navbar />
             {item !== null ? (
                     <ItemsBox key={item.id} email={email}id={item.id} caption={item.caption} price={item.price} currency={item.currency} img={item.img} />
