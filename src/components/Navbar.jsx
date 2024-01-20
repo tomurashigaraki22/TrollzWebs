@@ -36,9 +36,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#fde7d9] text-gray-800">
+    <div className="bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
       {/* Top Part */}
-      <div className="flex bg-[#fde7d9] gap-5 justify-end bg-gray-200 px-6 py-2 text-black text-sm">
+      <div className="flex bg-gradient-to-r from-[#fde7d9] to-[#fee5d7] gap-5 justify-end bg-gray-200 px-6 py-2 text-black text-sm">
         <Link to="/contact" className="text-black hover:underline pb-1">
           Contact us
         </Link>
@@ -85,7 +85,7 @@ const Navbar = () => {
         {/* Icons */}
         <div className="flex gap-5">
           <Link to='/wishlist'>
-            <HiShoppingCart className="text-3xl cursor-pointer" />
+            <HiShoppingCart className="text-3xl" />
           </Link>
         </div>
       </div>

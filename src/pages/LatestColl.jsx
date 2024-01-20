@@ -46,28 +46,32 @@ const LatestCollection = () => {
 
   return (
     <div className="bg-gradient-to-r from-[#fde7d9] to-[#fee5d7]">
-        <Navbar/>
-    <div className="container mx-auto mt-10">
-      <h2 className="text-3xl font-bold mb-6">Latest Collection</h2>
-      {loading ? (
-        <Dots />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {items.map((item) => (
-            <div onClick={() => navigate('/product/'+item.id)} key={item.id} className="border p-4 rounded-md">
-              <img
-                src={`${BASE_TEST}/${item.img.replace(/\\/g, '/')}`}
-                alt={`Item ${item.id}`}
-                className="w-full h-40 object-cover mb-4"
-              />
-              <h3 className="text-lg font-bold">{item.caption}</h3>
-              <p className="text-gray-600">{item.category}</p>
-              <p className="text-gray-800 mt-2">NGN{item.price}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      <Navbar />
+      <div className="container mx-auto mt-10">
+        <h2 className="text-3xl font-bold mb-6">Latest Collection</h2>
+        {loading ? (
+          <Dots />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {items.map((item) => (
+              <div
+                onClick={() => navigate('/product/' + item.id)}
+                key={item.id}
+                className="border p-6 rounded-lg bg-white" // Add bg-white for the white background
+              >
+                <img
+                  src={`${BASE_TEST}/${item.img.replace(/\\/g, '/')}`}
+                  alt={`Item ${item.id}`}
+                  className="w-full h-40 object-contain mb-4"
+                />
+                <h3 className="text-lg font-bold">{item.caption}</h3>
+                <p className="text-gray-600">{item.category}</p>
+                <p className="text-gray-800 mt-2">NGN{item.price}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
